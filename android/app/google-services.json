@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "999680057512",
+    "firebase_url": "https://featherwebsintern.firebaseio.com",
+    "project_id": "featherwebsintern",
+    "storage_bucket": "featherwebsintern.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999680057512:android:2030135d4c330f0455629d",
+        "android_client_info": {
+          "package_name": "com.amanintern.studymanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999680057512-rebuu2rnjt3bbcehq010k6fml3ah00jc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP8-1Im03ZdXdPMYGhn8ann2AdBkQa_EE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999680057512-rebuu2rnjt3bbcehq010k6fml3ah00jc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
