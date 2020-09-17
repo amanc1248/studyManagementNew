@@ -41,4 +41,47 @@ class TheData extends ChangeNotifier {
     _todaysTaskNumber = val;
     notifyListeners();
   }
+
+  //5) for storing user email
+  String _userEmail = "abc";
+  String get userEmail => _userEmail;
+  set userEmail(String val) {
+    _userEmail = val;
+    notifyListeners();
+  }
+
+  //6) for storing user password
+  String _userPassword;
+  String get userPassword => _userPassword;
+  set userPassword(String val) {
+    _userPassword = val;
+    notifyListeners();
+  }
+
+  //7) for storing user type
+  String _userType;
+  String get userType => _userType;
+  set userType(String val) {
+    _userType = val;
+    notifyListeners();
+  }
+
+  String _type;
+  String get type => _type;
+  set type(String val) {
+    _type = val;
+    notifyListeners();
+  }
+
+  String _taskCount;
+  String get taskCount => _taskCount;
+  set taskCount(String val) {
+    _taskCount = val;
+    notifyListeners();
+  }
+
+  countingTheTask() {
+    taskCount = todaysTaskNumber.length.toString();
+    notifyListeners();
+  }
 }

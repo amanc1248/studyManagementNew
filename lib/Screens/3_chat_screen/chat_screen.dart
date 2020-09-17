@@ -1,15 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studymanagement/constants.dart';
+import 'package:studymanagement/provider.dart';
+
+final firestoreChat = FirebaseFirestore.instance;
+String databaseEmail;
+String savedEmail;
+String messageText;
 
 class ChatScreen extends StatefulWidget {
+  static const String id = 'chat_screen';
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
+var theDataProvider;
+
 class _ChatScreenState extends State<ChatScreen> {
+  final messageTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    theDataProvider = Provider.of<TheData>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         leading: null,
@@ -36,15 +51,21 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: messageTextController,
                       onChanged: (value) {
-                        //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
                   FlatButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      messageTextController.clear();
+                      firestoreChat.collection('Messages').add({
+                        'email': theDataProvider.userEmail,
+                        'text': messageText,
+                        'type': theDataProvider.type,
+                      });
                     },
                     child: Text(
                       'Send',
@@ -66,7 +87,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _fireStore.collection('eventDetails').snapshots(),
+      stream: _fireStore.collection('Messages').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -75,15 +96,36 @@ class MessagesStream extends StatelessWidget {
             ),
           );
         }
+
+        // firestoreChat.collection("Messages").get().then((querySnapshot) {
+        //   querySnapshot.docs.forEach(
+        //     (i) {
+        //       print(databaseEmail + "the database Email");
+        //       if (theDataProvider.userEmail == databaseEmail) {
+        //         print(
+        //             "you are welcome to the chat screen-----------------------------------------");
+        //         isMe = true;
+        //       } else {
+        //         print("you are fuck");
+        //       }
+        //     },
+        //   );
+        // });
+
         final messages = snapshot.data.docs.reversed;
         List<MessageBubble> messageBubbles = [];
+        savedEmail = theDataProvider.userEmail;
+
         for (var message in messages) {
-          final messageText = message.data()['subject'];
-          final messageSender = message.data()['dateTime'];
+          databaseEmail = message.data()['email'];
+
+          final messageText = message.data()['text'];
+          final messageSender = message.data()['email'];
 
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,
+            isMe: savedEmail == databaseEmail,
           );
 
           messageBubbles.add(messageBubble);
@@ -101,17 +143,19 @@ class MessagesStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({this.sender, this.text});
+  MessageBubble({this.sender, this.text, this.isMe});
 
   final String sender;
   final String text;
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             sender,
@@ -121,18 +165,23 @@ class MessageBubble extends StatelessWidget {
             ),
           ),
           Material(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                bottomLeft: Radius.circular(30.0),
-                bottomRight: Radius.circular(30.0)),
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0))
+                : BorderRadius.only(
+                    topRight: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0)),
             elevation: 5.0,
-            color: Colors.lightBlueAccent,
+            color: isMe ? Colors.lightBlueAccent : Colors.white,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
-                "You have a class at " + " of " + text + " at " + sender,
+                text,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 15.0,
                 ),
               ),

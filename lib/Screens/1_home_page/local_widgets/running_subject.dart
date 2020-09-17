@@ -64,9 +64,9 @@ class _RunningSubjectBuildingState extends State<RunningSubjectBuilding> {
               theRunningWidgets.add(
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 15, bottom: 15, right: 12, left: 12),
+                      top: 5, bottom: 15, right: 12, left: 12),
                   child: Container(
-                      height: 120,
+                      height: 110,
                       width: 170,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(16)),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studymanagement/constants.dart';
 
 class SectionTitle extends StatelessWidget {
   final String mainHeading;
@@ -9,7 +8,7 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: kHomePageMainPadding,
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Container(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
