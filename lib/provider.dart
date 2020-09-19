@@ -80,6 +80,10 @@ class TheData extends ChangeNotifier {
     notifyListeners();
   }
 
+  
+
+
+
   countingTheTask() {
     taskCount = todaysTaskNumber.length.toString();
     notifyListeners();
