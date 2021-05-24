@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
           WelcomeScreen.id: (context) => WelcomeScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           RegistrationScreen.id: (context) => RegistrationScreen(),
-          ChatScreen.id: (context) => ChatScreen(),
-          MainEntryFile.id: (context) => MainEntryFile(),
+          MainEntryFile.id: (context) => ChatScreen(),
         },
       ),
     );

@@ -97,21 +97,6 @@ class MessagesStream extends StatelessWidget {
           );
         }
 
-        // firestoreChat.collection("Messages").get().then((querySnapshot) {
-        //   querySnapshot.docs.forEach(
-        //     (i) {
-        //       print(databaseEmail + "the database Email");
-        //       if (theDataProvider.userEmail == databaseEmail) {
-        //         print(
-        //             "you are welcome to the chat screen-----------------------------------------");
-        //         isMe = true;
-        //       } else {
-        //         print("you are fuck");
-        //       }
-        //     },
-        //   );
-        // });
-
         final messages = snapshot.data.docs.reversed;
         List<MessageBubble> messageBubbles = [];
         savedEmail = theDataProvider.userEmail;

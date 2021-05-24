@@ -34,8 +34,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   RegisterType registerType;
   List<RegisterType> registrationList = <RegisterType>[
-    RegisterType(type: "Student"),
-    RegisterType(type: "Teacher"),
+    RegisterType(type: "Tenant"),
+    RegisterType(type: "Owner"),
   ];
 
   bool subjectsOptionShow = false;
@@ -44,7 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (registerType == null) {
       subjectsOptionShow = false;
     } else {
-      if (registerType.type == "Teacher") {
+      if (registerType.type == "Owner") {
         subjectsOptionShow = true;
       } else {
         subjectsOptionShow = false;
@@ -54,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Future addingValuesToStudentDatabase() async {
-    return firestoreInstance.collection("Student").add({
+    return firestoreInstance.collection("Tenant").add({
       "email": email,
       "password": password,
       "type": registerType.type,
@@ -62,11 +62,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Future addingValuesToTeacherDatabase() async {
-    return firestoreInstance.collection("Teacher").add({
+    return firestoreInstance.collection("Owner").add({
       "email": email,
       "password": password,
       "type": registerType.type,
-      "subjects": selectedSubject.subject,
     });
   }
 
@@ -151,46 +150,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               SizedBox(
                 height: 8,
               ),
-              Visibility(
-                visible: changingTheSubjectOptions(),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      border: Border.all(color: Colors.lightBlueAccent)),
-                  child: Center(
-                    child: DropdownButton<Subject>(
-                      value: selectedSubject,
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      hint: Container(
-                        // width: 200,
-                        child: Text("Choose the subject ",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15)),
-                      ),
-                      underline: Container(
-                        color: Colors.white,
-                      ),
-                      style: TextStyle(color: Colors.black),
-                      onChanged: (Subject newValue) {
-                        setState(() {
-                          selectedSubject = newValue;
-                        });
-                      },
-                      items: subjects
-                          .map<DropdownMenuItem<Subject>>((Subject value) {
-                        return DropdownMenuItem<Subject>(
-                          value: value,
-                          child: Text(value.subject),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              ),
+
               SizedBox(
                 height: 24,
               ),
@@ -201,7 +161,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   setState(() {
                     showSpinner = true;
                   });
-                  if (registerType.type == "Student") {
+                  if (registerType.type == "Tenant") {
                     await addingValuesToStudentDatabase();
                   } else {
                     await addingValuesToTeacherDatabase();

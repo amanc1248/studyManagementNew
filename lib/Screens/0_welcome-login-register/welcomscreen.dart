@@ -38,7 +38,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               children: <Widget>[
                 TypewriterAnimatedTextKit(
                   speed: Duration(milliseconds: 200),
-                  text: ['Study Mangement'],
+                  text: ['Tenant Owner Chat'],
                   textStyle: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.w900,

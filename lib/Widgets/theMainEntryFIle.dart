@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymanagement/Screens/1_home_page/home_page.dart';
-import 'package:studymanagement/Screens/2_tasks_page/tasks_page.dart';
+
 import 'package:studymanagement/Screens/3_chat_screen/chat_screen.dart';
 
 class MainEntryFile extends StatefulWidget {
@@ -20,8 +19,6 @@ class _MainEntryFile extends State<MainEntryFile> {
   }
 
   final List<Widget> _children = [
-    HomePage(),
-    TasksPage(),
     ChatScreen(),
   ];
 

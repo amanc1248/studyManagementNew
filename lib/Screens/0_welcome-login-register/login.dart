@@ -21,16 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
   String password;
   RegisterType registerType;
   List<RegisterType> registrationList = <RegisterType>[
-    RegisterType(type: "Student"),
-    RegisterType(type: "Teacher"),
+    RegisterType(type: "Tenant"),
+    RegisterType(type: "Owner"),
   ];
 
   final firestoreInstance = FirebaseFirestore.instance;
 
-  // Future authenticatingStudentOrTeacher() async {
+  // Future authenticatingTenantOrOwner() async {
   //   print("Hello man first in");
   //   return StreamBuilder<QuerySnapshot>(
-  //     stream: firestoreInstance.collection("Student").snapshots(),
+  //     stream: firestoreInstance.collection("Tenant").snapshots(),
   //     builder: (context, snapshot) {
   //       print("you are definitely in");
   //       print(password);
